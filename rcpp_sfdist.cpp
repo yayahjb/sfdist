@@ -44,22 +44,22 @@ extern "C" SEXP rcpp_sfdist ( SEXP SF1_name_, SEXP SF2_name_) {
 
         if (dist < 0.) {
         if (-1.001 < dist && dist < 0.999) {
-            Rcpp::stop("rcpp_sfdist: Unable to open file '%s'\n",SF1_name);
+            Rcpp::stop("rcpp_sfdist: Unable to open first file \n");
         }
         if (-1.101 < dist && dist < -1.099 ) {
-            Rcpp::stop("rcpp_sfdist: Unable to guess labels from '%s'\n",SF1_name);
+            Rcpp::stop("rcpp_sfdist: Unable to guess labels from firsy file\n");
         }
         if (-1.201 < dist && dist < -1.199 ) {
-            Rcpp::stop("rcpp_sfdist: '%s' must have an mtz extension\n", SF1_name);
+            Rcpp::stop("rcpp_sfdist: first file must have an mtz extension\n");
         }
         if (-2.001 < dist && dist < -1.999 ) {
-            Rcpp::stop("rcpp_sfdist: Unable to open file '%s'\n",SF2_name);
+            Rcpp::stop("rcpp_sfdist: Unable to open second file\n");
         }
         if (-2.101 < dist && dist < -2.099 ) {
-            Rcpp::stop("rcpp_sfdist: Unable to guess labels from '%s'\n",SF2_name);
+            Rcpp::stop("rcpp_sfdist: Unable to guess labels from second file\n");
         }   
         if (-2.201 < dist && dist < -2.199 ) {
-            Rcpp::stop("rcpp_sfdist: '%s' must have an mtz extension\n", SF2_name);
+            Rcpp::stop("rcpp_sfdist: second file must have an mtz extension\n");
         }
 
         Rcpp::stop("rcpp_sfdist: error\n");
