@@ -6,15 +6,15 @@
 #         Herbert J. Bernstein (yayahjb@gmail.com)                   #
 #         Lawrence C Andrews                                         #
 #                                                                    #
-# (C) Copyright 2016 Herbert J. Bernstein, Lawrence C. Andrews       #
+# (C) Copyright 2016-2017 Herbert J. Bernstein, Lawrence C. Andrews  #
 #                                                                    #
 ######################################################################
 
 ######################################################################
 #                                                                    #
-# YOU MAY REDISTRIBUTE THE CBFLIB PACKAGE UNDER THE TERMS OF THE GPL #
+# YOU MAY REDISTRIBUTE THE sfdist PACKAGE UNDER THE TERMS OF THE GPL #
 #                                                                    #
-# ALTERNATIVELY YOU MAY REDISTRIBUTE THE CBFLIB API UNDER THE TERMS  #
+# ALTERNATIVELY YOU MAY REDISTRIBUTE THE sfdist API UNDER THE TERMS  #
 # OF THE LGPL                                                        #
 #                                                                    #
 ######################################################################
@@ -104,9 +104,10 @@ set_target_properties(RLAPACK_shared_lib PROPERTIES INTERFACE_LINK_LIBRARIES ${R
 add_library(rcpp_sfdist SHARED ${RCPP_SFDIST_SOURCES} ${R_LIBRARY} ${RCPP_LIBRARY})
 target_link_libraries(rcpp_sfdist ${CCP4_LIBRARIES})
 add_executable(sfdist ${SFDIST_SOURCES} )
-target_link_libraries(sfdist ${CCP4_LIBRARIES}${CMAKE_THREAD_LIBS_INIT} )
+target_link_libraries(sfdist ${CCP4_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} )
 
 install(TARGETS sfdist DESTINATION bin)
 install(TARGETS rcpp_sfdist DESTINATION lib)
-install(FILES license.txt DESTINATION share/sfdist/)
+install(FILES lgpl.txt DESTINATION share/sfdist/)
+install(FILES gpl.txt DESTINATION share/sfdist/)
 
