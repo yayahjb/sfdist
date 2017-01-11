@@ -90,7 +90,7 @@ label.cpp label.h utils.cpp utils.h)
 
 set(RCPP_SFDIST_SOURCES
 SFDist_refl.cpp sf.h
-rcpp_SFDist_mtz.cpp
+SFDist_mtz.cpp
 rcpp_sfdist.cpp sf.cpp sf.h sfmtzin.cpp
 sfmtzin.h label.cpp label.h utils.cpp utils.h)
 

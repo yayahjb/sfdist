@@ -71,6 +71,7 @@ double SFDist_mtz(std::string SF1_name, std::string SF2_name) {
     std::vector<SF> refl2; /* data from mtz_file2 */
     
     bool verbose = true;
+    double dist;
         
     
     idx1 = SF1_name.rfind('.');
@@ -82,12 +83,19 @@ double SFDist_mtz(std::string SF1_name, std::string SF2_name) {
     
     if(SF1_name_ext.compare("MTZ")==0 ||
        SF1_name_ext.compare("mtz")==0 ){
-        if ( ! (mtz_file1 = CMtz::MtzGet (SF1_name.c_str(), 0)) )
-        {
-           return -1.0;
+        try {
+           if ( ! (mtz_file1 = CMtz::MtzGet (SF1_name.c_str(), 0)) )
+           {
+              return -1.0;
+           }
         }
+        catch (...) {
+              return -1.0;
+        }
+        
         if ( ! sfguess_labels(mtz_file1, data_col1))
         {
+           CMtz::MtzFree(mtz_file1);
            return -1.1;
         }
         
@@ -100,21 +108,48 @@ double SFDist_mtz(std::string SF1_name, std::string SF2_name) {
     
     if(SF2_name_ext.compare("MTZ")==0 ||
        SF2_name_ext.compare("mtz")==0 ){
-        if ( ! (mtz_file2 = CMtz::MtzGet (SF2_name.c_str(), 0)) )
-        {
-            return -2.;
+        try {
+           if ( ! (mtz_file2 = CMtz::MtzGet (SF2_name.c_str(), 0)) )
+           {
+               std::vector<Label>().swap(data_col1);
+               std::vector<SF>().swap(refl1);
+   	       CMtz::MtzFree(mtz_file1);
+               return -2.;
+           }
+        }
+        catch (...) {
+               std::vector<Label>().swap(data_col1);
+               std::vector<SF>().swap(refl1);
+               CMtz::MtzFree(mtz_file1);
+               return -2.;
         }
         if ( ! sfguess_labels(mtz_file2, data_col2))
-        {
+        {           
+            std::vector<Label>().swap(data_col1);
+            std::vector<SF>().swap(refl1);
+            CMtz::MtzFree(mtz_file1);
+            std::vector<Label>().swap(data_col2);
+            std::vector<SF>().swap(refl2);
+            CMtz::MtzFree(mtz_file2);
             return -2.1;
         }
         
         // get data and store in @c refl2
         sfget_data (mtz_file2, data_col2, refl2, verbose);
     } else {
+        std::vector<Label>().swap(data_col1);
+        std::vector<SF>().swap(refl1);
+        CMtz::MtzFree(mtz_file1);
         return -2.2;
     }
     
-    
-    return SFDist_refl(refl1,refl2);
+    dist =  SFDist_refl(refl1,refl2);
+    std::vector<Label>().swap(data_col1);
+    std::vector<Label>().swap(data_col2);
+    std::vector<SF>().swap(refl1);
+    std::vector<SF>().swap(refl2);
+    CMtz::MtzFree(mtz_file1);
+    CMtz::MtzFree(mtz_file2);
+
+    return dist;
 }

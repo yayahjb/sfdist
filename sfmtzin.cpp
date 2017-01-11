@@ -465,6 +465,9 @@ void sfget_data (CMtz::MTZ *mtz,
     SF refl;
     char  coltype;           // Columntype
     int   sg;
+
+    logmss = NULL;
+    adata = NULL;
     
     total_cols = mtz->ncol_read;
     logmss = new int[total_cols];
@@ -613,6 +616,8 @@ void sfget_data (CMtz::MTZ *mtz,
         }
             
     }
+    delete[] adata;
+    delete[] logmss; 
 }
 
 //! scale data so the intensities would fit to F8.1 format

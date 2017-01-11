@@ -32,7 +32,7 @@
 using namespace RcppParallel;
 #include "defines.h"
 
-double rcpp_SFDist_mtz(std::string SF1_name, std::string SF2_name);
+double SFDist_mtz(std::string SF1_name, std::string SF2_name);
 
 extern "C" SEXP rcpp_sfdist ( SEXP SF1_name_, SEXP SF2_name_) {
     
@@ -40,7 +40,7 @@ extern "C" SEXP rcpp_sfdist ( SEXP SF1_name_, SEXP SF2_name_) {
     std::string SF2_name = Rcpp::as<std::string>(SF2_name_);;
     double dist;
 
-    dist = rcpp_SFDist_mtz(SF1_name,SF2_name);
+    dist = SFDist_mtz(SF1_name,SF2_name);
 
         if (dist < 0.) {
         if (-1.001 < dist && dist < 0.999) {
