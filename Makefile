@@ -91,14 +91,14 @@ distclean:  clean
 	-@rm -rf build
 
 SFDist_refl.o: SFDist_refl.cpp sf.h
-	g++ -g -O3 -fopenmp -fpic -O3 -fPIC   -I. -c SFDist_refl.cpp
+	g++ -g -O3 -fopenmp -fpic -fPIC   -I. -c SFDist_refl.cpp
 
 SFDist_mtz.o: SFDist_mtz.cpp
-	g++ -g -O3 -fopenmp -fpic -O3 -fPIC   -I. -c SFDist_mtz.cpp
+	g++ -g -O3 -fopenmp -fpic -fPIC   -I. -c SFDist_mtz.cpp
 
 bin/sfdist:  bin SFDist_refl.o SFDist_mtz.o sfdist.cpp sf.cpp sf.h \
 	sfmtzin.cpp sfmtzin.h label.cpp label.h utils.cpp utils.h
-	g++ -g -O3 -fopenmp  -O3  -o bin/sfdist -I. SFDist_refl.o SFDist_mtz.o \
+	g++ -g -O3 -fopenmp   -o bin/sfdist -I. SFDist_refl.o SFDist_mtz.o \
 	sfdist.cpp  sf.cpp sfmtzin.cpp label.cpp utils.cpp -L $(PREFIX)/lib -lccp4c
 
 lib/librcpp_sfdist.so: lib SFDist_refl.o SFDist_mtz.o rcpp_sfdist.cpp sf.cpp sf.h sfmtzin.cpp \

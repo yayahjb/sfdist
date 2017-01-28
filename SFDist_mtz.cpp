@@ -5,7 +5,7 @@
 //  Created by Herbert J. Bernstein on 12/27/16.
 //
 //
-/* Function calculatin of distance between two sets of
+/* Function calculation of distance between two sets of
  structure factors as .mtz files
 
   Uses SFDist_refl.cpp for the actual distance calculation
